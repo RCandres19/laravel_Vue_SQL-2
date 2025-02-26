@@ -7,3 +7,4 @@ use App\Http\Controllers\ItemController;
   //  return response()->json(['mensaje' => 'La API funciona correctamente'], 200); //Realiza un mensaje de que la ruta esta correctamente conectada
 //});
 Route::apiResource('items', ItemController::class); //Se crea la ruta de la API para los items
+Route::post('/items', [ItemController::class, 'store']); //Se crea la ruta de la API para los items

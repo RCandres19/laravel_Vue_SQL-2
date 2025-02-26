@@ -1,32 +1,50 @@
 <template>
-  <div>
-    <h2>Lista de Items</h2>
-    <ul>
-      <li v-for="item in items" :key="item.id">{{ item.nombre }}</li>
-    </ul>
+  <div class="container">
+    <h2>Registro de Usuario</h2>
+    <form @submit.prevent="registrarUsuario">
+      <label for="nombre">Name:</label>
+      <input type="text" id="name" v-model="form.name" required placeholder="Enter your name">
+
+      <label for="lastname">Lastname:</label>
+      <input type="text" id="lastname" v-model="form.lastname" required placeholder="Enter your last name">
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" v-model="form.email" required placeholder="Enter your email">
+
+      <label for="phone">Phone:</label>
+      <input type="tel" id="phone" v-model="form.phone" required placeholder="Enter your phone">
+
+      <button type="submit">Registrar</button>
+    </form>
   </div>
 </template>
 
 
 <script>
 import api from '../services/api';
+import Swal from 'sweetalert2';
+import { useRouter } from 'vue-router';
+
 
 export default {
+  name: 'FormulariodeMatusalen',
   data() {
-    return { items: [] };
+    return { 
+      form: {
+        name: '',
+        lastname: '',
+        email: '',
+        phone: ''
+      }
+    };
   },
+  setup() {
+    const router = useRouter();
 
-  methods: {
-      // Métodos del componente
-      async submitForm() {
-          // Método para enviar el formulario
+    const registrarUsuario = async () => {
           try {
               // Intentar enviar el formulario
               const response = await api.get('http://127.0.0.1:8000/api/items', this.form);
-              // Enviar formulario a la API
-              // const response = await axios.post('http://192.168.248.138:8000/api/items', this.form); // para conectarse con la ip de la maquina virtual
-
-              // Obtener ID del usuario registrado
               const userId = response.data.data.id;
               const userName = this.form.name;
 
@@ -39,16 +57,15 @@ export default {
                   showConfirmButton: false
               });
 
-              // Mensaje de éxito
-              //this.successMessage = `Felicidades, usuario ${response.data.data.id} ingresado correctamente`;
-
               // Limpiar el formulario
               this.form = { name: '', lastname: '', email: '', phone: '' };
-          } catch (error) {
-              console.error('Error al enviar el formulario:', error);
-              
-      }
-    },     
+
+              router.push('/home');
+          }   catch (error) {
+              console.error('Error al enviar el formulario:', error);            
+          }
+        };
+    return { registrarUsuario };     
   }
 };
 </script>
