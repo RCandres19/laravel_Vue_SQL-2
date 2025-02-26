@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>Mi Aplicación con Vue y Laravel</h1>
-    <ListaItems />
+    <Formulariodematusalen />
   </div>
 </template>
 
