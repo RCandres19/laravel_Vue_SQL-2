@@ -1,18 +1,16 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div>
+    <h1>Mi Aplicación con Vue y Laravel</h1>
+    <ListaItems />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Formulariodematusalen from './components/Formulariodematusalen.vue';
 
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
-  }
-}
+export default { components: { Formulariodematusalen } };
 </script>
+
 
 <style>
 #app {
